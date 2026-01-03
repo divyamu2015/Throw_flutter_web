@@ -15,6 +15,7 @@ class DeliveryRequestService {
           (snapshot) => snapshot.docs
               .map((doc) =>
                   DeliveryRequest.fromFirestore(doc.data(), doc.id))
+              .where((req) => req.deliveryRequestId.trim().isNotEmpty)
               .toList(),
         );
   }

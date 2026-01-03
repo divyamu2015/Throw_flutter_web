@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:throw_app/core/models/agent_approval.dart';
 import 'package:throw_app/core/service/agent_approval.dart';
+import 'package:throw_app/modules/dashboard_module/widgets/enum_sidenavbar.dart';
+import 'package:throw_app/modules/dashboard_module/widgets/sidenavbar.dart';
 import 'package:throw_app/modules/delivery_module/delivery_agent_list/view_agent_details.dart';
 import 'package:throw_app/modules/delivery_module/widget/actionbutton.dart';
 
@@ -14,7 +16,7 @@ class DeliveryAgentApproval extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F8F8),
       body: Row(
         children: [
-          const _SideBar(),
+          const SideNavBar(selected: SideNavItem.agents), 
           Expanded(
             child: Column(
               children: const [
@@ -31,83 +33,83 @@ class DeliveryAgentApproval extends StatelessWidget {
 
 /* ===================== SIDEBAR ===================== */
 
-class _SideBar extends StatelessWidget {
-  const _SideBar();
+// class _SideBar extends StatelessWidget {
+//   const _SideBar();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 260,
-      color: Colors.white,
-      child: Column(
-        children: [
-          const SizedBox(height: 24),
-          ListTile(
-            leading: const CircleAvatar(radius: 20),
-            title: Text(
-              "Admin User",
-              style: GoogleFonts.inter(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
-              "admin@throw.com",
-              style: GoogleFonts.inter(fontSize: 12),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _navItem(Icons.dashboard, "Dashboard"),
-          _navItem(Icons.group, "Customers"),
-          _navItem(
-            Icons.local_shipping,
-            "Deliveries",
-            active: true,
-            onTap: () {},
-          ),
-          _navItem(
-            Icons.shield,
-            "Agents",
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DeliveryAgentApproval(),
-                ),
-              );
-            },
-          ),
-          const Spacer(),
-          _navItem(Icons.logout, "Logout", onTap: () {}),
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 260,
+//       color: Colors.white,
+//       child: Column(
+//         children: [
+//           const SizedBox(height: 24),
+//           ListTile(
+//             leading: const CircleAvatar(radius: 20),
+//             title: Text(
+//               "Admin User",
+//               style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+//             ),
+//             subtitle: Text(
+//               "admin@throw.com",
+//               style: GoogleFonts.inter(fontSize: 12),
+//             ),
+//           ),
+//           const SizedBox(height: 16),
+//           _navItem(Icons.dashboard, "Dashboard"),
+//           _navItem(Icons.group, "Customers"),
+//           _navItem(
+//             Icons.local_shipping,
+//             "Deliveries",
+//             active: true,
+//             onTap: () {},
+//           ),
+//           _navItem(
+//             Icons.shield,
+//             "Agents",
+//             onTap: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => const DeliveryAgentApproval(),
+//                 ),
+//               );
+//             },
+//           ),
+//           const Spacer(),
+//           _navItem(Icons.logout, "Logout", onTap: () {}),
+//           const SizedBox(height: 16),
+//         ],
+//       ),
+//     );
+//   }
 
-  Widget _navItem(
-    IconData icon,
-    String label, {
-    bool active = false,
-    VoidCallback? onTap,
-  }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: active ? Colors.lightBlue.withOpacity(0.2) : null,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon, color: active ? Colors.lightBlue : Colors.grey),
-        title: Text(
-          label,
-          style: GoogleFonts.inter(
-            fontWeight: FontWeight.w500,
-            color: active ? Colors.lightBlue : Colors.black87,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   Widget _navItem(
+//     IconData icon,
+//     String label, {
+//     bool active = false,
+//     VoidCallback? onTap,
+//   }) {
+//     return Container(
+//       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+//       decoration: BoxDecoration(
+//         color: active ? Colors.lightBlue.withOpacity(0.2) : null,
+//         borderRadius: BorderRadius.circular(12),
+//       ),
+//       child: ListTile(
+//         onTap: onTap,
+//         leading: Icon(icon, color: active ? Colors.lightBlue : Colors.grey),
+//         title: Text(
+//           label,
+//           style: GoogleFonts.inter(
+//             fontWeight: FontWeight.w500,
+//             color: active ? Colors.lightBlue : Colors.black87,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 /* ===================== TOP BAR ===================== */
 
@@ -128,17 +130,17 @@ class _TopBar extends StatelessWidget {
         children: [
           Text(
             "Delivery Agents",
-            style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold),
+            style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 99, 99, 99)),
           ),
-          Row(
-            children: const [
-              Icon(Icons.notifications_outlined),
-              SizedBox(width: 16),
-              Icon(Icons.help_outline),
-              SizedBox(width: 16),
-              CircleAvatar(radius: 18),
-            ],
-          ),
+          // Row(
+          //   children: const [
+          //     Icon(Icons.notifications_outlined),
+          //     SizedBox(width: 16),
+          //     Icon(Icons.help_outline),
+          //     SizedBox(width: 16),
+          //     CircleAvatar(radius: 18),
+          //   ],
+          // ),
         ],
       ),
     );

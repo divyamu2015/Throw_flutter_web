@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:throw_app/modules/customer_list_module/view.dart';
+import 'package:throw_app/modules/dashboard_module/view/home_screen.dart';
+import 'package:throw_app/modules/dashboard_module/widgets/enum_sidenavbar.dart';
 import 'package:throw_app/modules/delivery_module/delivery_agent_list/delivery_agent_view.dart';
+import 'package:throw_app/modules/delivery_request_list_module/view.dart';
 
 class SideNavBar extends StatelessWidget {
-  const SideNavBar({super.key});
+  final SideNavItem selected;
+
+  const SideNavBar({
+    super.key,
+    required this.selected,
+  });
+
+  void _navigate(
+    BuildContext context,
+    Widget page,
+  ) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => page),
+      (route) => false, // clears stack
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,40 +37,71 @@ class SideNavBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              CircleAvatar(radius: 20),
+            children: [
+              CircleAvatar(radius: 20,
+              child:Icon(Icons.send,color: Color(0xFF0EA5E9), size: 32),
+                             ),
               SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Throw", style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)),
-                  SizedBox(height: 10,),
-                  Text("Admin Panel",
-                      style: TextStyle(fontSize: 12, color: Colors.grey,)),
+                  Text(
+                    "Throw",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Admin Panel",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
                 ],
               )
             ],
           ),
           const SizedBox(height: 24),
-          NavItem(Icons.dashboard, "Dashboard", active: true),
-          NavItem(Icons.local_shipping, "Deliveries",onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const DeliveryAgentApproval()));
-          },),
-          NavItem(Icons.group, "Customers",onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomersPage()));
-          },),
-          NavItem(Icons.shield, "Agents",onTap: () {
-            
-          },),
-        //  NavItem(Icons.settings, "Settings"),
+
+          /// DASHBOARD
+          NavItem(
+            Icon(Icons.dashboard,),
+            "Dashboard",
+            active: selected == SideNavItem.dashboard,
+            onTap: () => _navigate(context, const DashboardPage()),
+          ),
+
+          /// DELIVERIES
+          NavItem(
+            Icon(Icons.local_shipping),
+            "Deliveries",
+            active: selected == SideNavItem.deliveries,
+            onTap: () => _navigate(context, const DeliveryRequestsPage()),
+          ),
+
+          /// CUSTOMERS
+          NavItem(
+            Icon(Icons.group),
+            "Customers",
+            active: selected == SideNavItem.customers,
+            onTap: () => _navigate(context, const CustomersPage()),
+          ),
+
+          /// AGENTS
+          NavItem(
+            Icon(Icons.shield),
+            "Agents",
+            active: selected == SideNavItem.agents,
+            onTap: () =>
+                _navigate(context, const DeliveryAgentApproval()),
+          ),
         ],
       ),
     );
   }
 }
 
+
 class NavItem extends StatelessWidget {
-  final IconData icon;
+  final Icon icon;
   final String title;
   final bool active;
   final VoidCallback? onTap;
@@ -60,7 +110,7 @@ class NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = active ? const Color(0xFF00BFFF) : Colors.black87;
+    final color = active ? const Color(0xFF00BFFF) : Colors.blueGrey;
 
     return InkWell(
        onTap: onTap,
@@ -74,7 +124,7 @@ class NavItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: color),
+            Icon(icon.icon, color: color),
             const SizedBox(width: 12),
             Text(title, style: TextStyle(color: color)),
           ],

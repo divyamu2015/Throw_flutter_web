@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:throw_app/modules/dashboard_module/widgets/dashboard_content.dart';
+import 'package:throw_app/modules/dashboard_module/widgets/enum_sidenavbar.dart';
 import 'package:throw_app/modules/dashboard_module/widgets/sidenavbar.dart';
 import 'package:throw_app/modules/dashboard_module/widgets/top_navigationbar.dart';
 
@@ -18,8 +19,8 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F8F8),
       body: Row(
-        children: const [
-          SideNavBar(),
+        children: [
+          SideNavBar(selected: SideNavItem.dashboard,),
           Expanded(
             child: Column(
               children: [

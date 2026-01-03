@@ -16,27 +16,28 @@ class TopNavBar extends StatelessWidget {
         children: [
           const Text(
             "Dashboard Overview",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 105, 105, 105)),
           ),
-          const Spacer(),
-          SizedBox(
-            width: 220,
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: "Search...",
-                isDense: true,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          const CircleAvatar(radius: 18),
+          // const Spacer(),
+          // SizedBox(
+          //   width: 220,
+          //   child: TextField(
+          //     decoration: InputDecoration(
+          //       prefixIcon: const Icon(Icons.search),
+          //       hintText: "Search...",
+          //       isDense: true,
+          //       border:
+          //           OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          //     ),
+          //   ),
+          // ),
+          // const SizedBox(width: 16),
+          // IconButton(
+          //   icon: const Icon(Icons.notifications),
+          //   onPressed: () {},
+          // ),
+          // const CircleAvatar(radius: 18),
         ],
       ),
     );
