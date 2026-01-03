@@ -1,0 +1,1 @@
+typedef ValidateTextInput = String? Function(String? value)?;
