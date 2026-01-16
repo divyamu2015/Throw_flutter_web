@@ -4,6 +4,7 @@ import 'package:throw_app/modules/dashboard_module/view/home_screen.dart';
 import 'package:throw_app/modules/dashboard_module/widgets/enum_sidenavbar.dart';
 import 'package:throw_app/modules/delivery_module/delivery_agent_list/delivery_agent_view.dart';
 import 'package:throw_app/modules/delivery_request_list_module/view.dart';
+import 'package:throw_app/modules/feedback_module/feedback_view.dart';
 
 class SideNavBar extends StatelessWidget {
   final SideNavItem selected;
@@ -92,6 +93,13 @@ class SideNavBar extends StatelessWidget {
             active: selected == SideNavItem.agents,
             onTap: () =>
                 _navigate(context, const DeliveryAgentApproval()),
+          ),
+           NavItem(
+            Icon(Icons.feedback),
+            "Feedback",
+            active: selected == SideNavItem.feedback,
+            onTap: () =>
+                _navigate(context, const ViewFeedback()),
           ),
         ],
       ),

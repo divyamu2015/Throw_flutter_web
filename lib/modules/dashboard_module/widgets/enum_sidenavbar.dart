@@ -3,4 +3,6 @@ enum SideNavItem {
   deliveries,
   customers,
   agents,
+  feedback,
+  escrowtranscations
 }

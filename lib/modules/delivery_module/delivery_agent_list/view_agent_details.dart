@@ -42,18 +42,8 @@ class AgentDetailsDialog extends StatelessWidget {
 
            ClipRRect(
   borderRadius: BorderRadius.circular(12),
-  child: FutureBuilder<String>(
-    future: getLicenseImageUrl(agent.licenseImageUrl),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) {
-        return const SizedBox(
-          height: 160,
-          child: Center(child: CircularProgressIndicator()),
-        );
-      }
-
-      return Image.network(
-        snapshot.data!,
+  child:Image.network(
+        agent.licenseImageUrl,
         height: 160,
         width: double.infinity,
         fit: BoxFit.cover,
@@ -64,9 +54,14 @@ class AgentDetailsDialog extends StatelessWidget {
             child: const Icon(Icons.broken_image),
           );
         },
-      );
-    },
-  ),
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+
 ),
 
 

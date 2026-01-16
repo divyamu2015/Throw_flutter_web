@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:throw_app/core/models/delivery_request_list.dart';
 import 'package:throw_app/core/service/delivery_request_list.dart';
-import 'package:throw_app/modules/dashboard_module/widgets/enum_sidenavbar.dart';
-import 'package:throw_app/modules/dashboard_module/widgets/sidenavbar.dart';
+import 'package:throw_app/modules/dashboard_module/view/home_screen.dart';
+import 'package:throw_app/modules/escrow_transactions_module/escrow_transactions_view.dart';
+import 'package:throw_app/modules/view_bid_list_module/view_bid_list_view.dart';
 
 class DeliveryRequestsPage extends StatelessWidget {
   const DeliveryRequestsPage({super.key});
@@ -14,7 +15,8 @@ class DeliveryRequestsPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F8F8),
       body: Row(
         children: [
-          const SideNavBar(selected: SideNavItem.deliveries),
+          _SideBar(),
+          //const SideNavBar(selected: SideNavItem.deliveries),
           Expanded(
             child: Column(
               children: const [
@@ -42,21 +44,76 @@ class _SideBar extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 24),
-          ListTile(
-            leading: const CircleAvatar(radius: 20),
-            title: Text(
-              "Admin User",
-              style: GoogleFonts.inter(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
-              "admin@throw.com",
-              style: GoogleFonts.inter(fontSize: 12),
-            ),
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                child: Icon(Icons.send, color: Color(0xFF0EA5E9), size: 32),
+              ),
+              SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Throw",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Admin Panel",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
           ),
           const SizedBox(height: 16),
-          _navItem(Icons.dashboard, "Dashboard"),
-          _navItem(Icons.local_shipping, "Delivery Requests", active: true),
-          _navItem(Icons.shield, "Agents"),
+          _navItem(
+            Icons.dashboard,
+            "Dashboard",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DashboardPage()),
+              );
+            },
+          ),
+          _navItem(
+            Icons.local_shipping,
+            "Deliveries",
+            active: true,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DeliveryRequestsPage(),
+                ),
+              );
+            },
+          ),
+          _navItem(
+            Icons.wallet,
+            "Escrow Transactions",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EscrowDashboard(),
+                ),
+              );
+            },
+          ),
+          //   _navItem(Icons.wallet, "View Bid List",onTap: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => const BidListPage(),
+          //     ),
+          //   );
+          // },),
           const Spacer(),
           _navItem(Icons.logout, "Logout"),
           const SizedBox(height: 16),
@@ -83,7 +140,7 @@ class _SideBar extends StatelessWidget {
         title: Text(
           label,
           style: GoogleFonts.inter(
-            fontWeight: FontWeight.w500,
+            // fontWeight: FontWeight.w500,
             color: active ? Colors.lightBlue : Colors.black87,
           ),
         ),
@@ -173,6 +230,16 @@ class _ContentArea extends StatelessWidget {
               ],
               rows: requests.map((req) {
                 return DataRow(
+                  onSelectChanged: (_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BidListPage(
+                          deliveryRequestDocId: req.id, // 🔥 Firestore doc id
+                        ),
+                      ),
+                    );
+                  },
                   cells: [
                     DataCell(
                       Text(
