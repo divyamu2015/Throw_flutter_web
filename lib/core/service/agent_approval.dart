@@ -75,5 +75,27 @@ Future<void> approveAgent(String uid) async {
   //     'updatedAt': FieldValue.serverTimestamp(),
   //   });
   // }
+  Stream<int> getTotalAgentsCount() {
+  return _db
+      .collection(agentCollection)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.length);
+}
+Stream<int> getApprovedAgentsCount() {
+  return _db
+      .collection(agentCollection)
+      .where('status', isEqualTo: 'approved')
+      .snapshots()
+      .map((snapshot) => snapshot.docs.length);
+}
+
+Stream<int> getPendingAgentsCount() {
+  return _db
+      .collection(agentCollection)
+      .where('status', isEqualTo: 'pending')
+      .snapshots()
+      .map((snapshot) => snapshot.docs.length);
+}
+
 }
  

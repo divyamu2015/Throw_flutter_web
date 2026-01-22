@@ -247,7 +247,7 @@ class _ContentArea extends StatelessWidget {
               .horizontal, // Changed to horizontal for potential wider tables
           child: DataTable(
             columns: const [
-              DataColumn(label: Text("Image")),
+           //   DataColumn(label: Text("Image")),
               DataColumn(label: Text("Agent Name")),
               DataColumn(label: Text("Rating")),
               DataColumn(label: Text("Verification")),
@@ -257,12 +257,12 @@ class _ContentArea extends StatelessWidget {
             rows: agents.map((deliveryAgent) {
               return DataRow(
                 cells: [
-                  DataCell(
-                    CircleAvatar(
-                      radius: 24,
-                      backgroundImage: NetworkImage(deliveryAgent.photoUrl),
-                    ),
-                  ),
+                  // DataCell(
+                  //   CircleAvatar(
+                  //     radius: 24,
+                  //     backgroundImage: NetworkImage(deliveryAgent.photoUrl),
+                  //   ),
+                  // ),
                   DataCell(
                     Text(
                       deliveryAgent.displayName,

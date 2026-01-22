@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:throw_app/core/models/agent_approval.dart';
-import 'package:throw_app/modules/delivery_module/delivery_agent_list/view_image_usertoken.dart';
 
 class AgentDetailsDialog extends StatelessWidget {
   final DeliveryAgent agent;
@@ -40,29 +39,29 @@ class AgentDetailsDialog extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-           ClipRRect(
-  borderRadius: BorderRadius.circular(12),
-  child:Image.network(
-        agent.licenseImageUrl,
-        height: 160,
-        width: double.infinity,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) {
-          return Container(
-            height: 160,
-            color: Colors.grey.shade200,
-            child: const Icon(Icons.broken_image),
-          );
-        },
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+//            ClipRRect(
+//   borderRadius: BorderRadius.circular(12),
+//   child:Image.network(
+//         agent.licenseImageUrl,
+//         height: 160,
+//         width: double.infinity,
+//         fit: BoxFit.cover,
+//         errorBuilder: (_, __, ___) {
+//           return Container(
+//             height: 160,
+//             color: Colors.grey.shade200,
+//             child: const Icon(Icons.broken_image),
+//           );
+//         },
+//         loadingBuilder: (context, child, loadingProgress) {
+//           if (loadingProgress == null) return child;
+//           return const Center(
+//             child: CircularProgressIndicator(),
+//           );
+//         },
+//       ),
 
-),
+// ),
 
 
             const SizedBox(height: 16),

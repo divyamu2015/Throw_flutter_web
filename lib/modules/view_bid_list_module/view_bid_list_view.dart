@@ -4,7 +4,6 @@ import 'package:throw_app/core/models/view_bid_list._model.dart';
 import 'package:throw_app/core/service/view_bid_list_service.dart';
 import 'package:throw_app/modules/dashboard_module/view/home_screen.dart';
 import 'package:throw_app/modules/delivery_request_list_module/view.dart';
-import 'package:throw_app/modules/escrow_transactions_module/escrow_transactions_view.dart';
 
 class BidListPage extends StatelessWidget {
   final String deliveryRequestDocId;
@@ -102,8 +101,8 @@ class _SideBar extends StatelessWidget {
           // ),
           _navItem(Icons.list_alt, "View Bid List", active: true),
           const Spacer(),
-          _navItem(Icons.logout, "Logout"),
-          const SizedBox(height: 16),
+          // _navItem(Icons.logout, "Logout"),
+          // const SizedBox(height: 16),
         ],
       ),
     );
@@ -200,8 +199,8 @@ class _ContentArea extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: DataTable(
               columns: const [
-                DataColumn(label: Text("Agent",style: TextStyle(color: Colors.black,
-                fontSize: 16),)),
+               // DataColumn(label: Text("Agent",style: TextStyle(color: Colors.black,
+                //fontSize: 16),)),
                 DataColumn(label: Text("Agent Name",style: TextStyle(color: Colors.black, fontSize: 16),)),
                 DataColumn(label: Text("Bid Amount",style: TextStyle(color: Colors.black, fontSize: 16),)),
                 DataColumn(label: Text("Bargain Amount",style: TextStyle(color: Colors.black, fontSize: 16),)),
@@ -210,16 +209,16 @@ class _ContentArea extends StatelessWidget {
               rows: bids.map((bid) {
                 return DataRow(
                   cells: [
-                    DataCell(
-                      CircleAvatar(
-                        backgroundImage: bid.agentAvatarUrl.isNotEmpty
-                            ? NetworkImage(bid.agentAvatarUrl)
-                            : null,
-                        child: bid.agentAvatarUrl.isEmpty
-                            ? const Icon(Icons.person)
-                            : null,
-                      ),
-                    ),
+                    // DataCell(
+                    //   CircleAvatar(
+                    //     backgroundImage: bid.agentAvatarUrl.isNotEmpty
+                    //         ? NetworkImage(bid.agentAvatarUrl)
+                    //         : null,
+                    //     child: bid.agentAvatarUrl.isEmpty
+                    //         ? const Icon(Icons.person)
+                    //         : null,
+                    //   ),
+                    // ),
                     DataCell(Text(bid.agentName,style: TextStyle(color: Colors.black),)),
                     DataCell(Text("₹${bid.bidAmount.toStringAsFixed(2)}",style: TextStyle(color: Colors.black),)),
                     DataCell(Text("₹${bid.bargainAmount.toStringAsFixed(2)}",style: TextStyle(color: Colors.black),)),

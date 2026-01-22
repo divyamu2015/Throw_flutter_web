@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:throw_app/core/service/custome_service.dart';
+import 'package:throw_app/core/service/agent_approval.dart';
+import 'package:throw_app/core/service/delivery_request_list.dart';
 import 'package:throw_app/modules/dashboard_module/widgets/matric_card.dart';
 
 class DashboardContent extends StatelessWidget {
@@ -6,43 +9,95 @@ class DashboardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        //  const SectionTitle("Key Metrics"),
-          const SizedBox(height: 16),
-          GridView.count(
-            crossAxisCount: 4,
-            shrinkWrap: true,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.6,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              MetricCard("Total Customers", "1,204", "+2.5%"),
-              MetricCard("Total Agents", "256", "+1.8%"),
-              MetricCard("Active Deliveries", "88", "-0.5%", negative: true),
-              MetricCard("Pending Verifications", "12", "+10%"),
-            ],
-          ),
-          const SizedBox(height: 32),
-         // const SectionTitle("Performance Charts"),
-         // const SizedBox(height: 16),
-          // Row(
-          //   children: const [
-          //     Expanded(child: ChartPlaceholder("Daily Deliveries")),
-          //     SizedBox(width: 16),
-          //     Expanded(child: ChartPlaceholder("Revenue Growth")),
-          //   ],
-          // ),
-          // const SizedBox(height: 32),
-          // const SectionTitle("Recent Activity"),
-          // const SizedBox(height: 16),
-          // const ActivityList(),
-        ],
-      ),
+    final customerService = CustomerService();
+    final agentService = DeliveryAgentService();
+    final deliveryService = DeliveryRequestService();
+
+    return StreamBuilder<int>(
+      stream: customerService.getCustomerCount(),
+      builder: (context, customerSnapshot) {
+        if (!customerSnapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return StreamBuilder<int>(
+          stream: agentService.getTotalAgentsCount(),
+          builder: (context, agentSnapshot) {
+            if (!agentSnapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return StreamBuilder<int>(
+              stream: deliveryService.getTotalDeliveriesCount(),
+              builder: (context, totalSnap) {
+                if (!totalSnap.hasData) return const CircularProgressIndicator();
+
+                return StreamBuilder<int>(
+                  stream: deliveryService.getActiveDeliveriesCount(),
+                  builder: (context, activeSnap) {
+                    if (!activeSnap.hasData) return const CircularProgressIndicator();
+
+                    return StreamBuilder<int>(
+                      stream: deliveryService.getDropOffDeliveriesCount(),
+                      builder: (context, dropSnap) {
+                        if (!dropSnap.hasData) return const CircularProgressIndicator();
+
+                        return StreamBuilder<int>(
+                          stream: deliveryService.getPendingDeliveriesCount(),
+                          builder: (context, pendingSnap) {
+                            if (!pendingSnap.hasData) {
+                              return const CircularProgressIndicator();
+                            }
+
+                            // ✅ Extract values here
+                            final totalCustomers = customerSnapshot.data!;
+                            final totalAgents = agentSnapshot.data!;
+                            final totalDeliveries = totalSnap.data!;
+                            final activeDeliveries = activeSnap.data!;
+                            final dropOffDeliveries = dropSnap.data!;
+                            final pendingDeliveries = pendingSnap.data!;
+
+                            return SingleChildScrollView(
+                              padding: const EdgeInsets.all(18),
+                              child: GridView.count(
+                                crossAxisCount: 4,
+                                shrinkWrap: true,
+                                crossAxisSpacing: 11,
+                                mainAxisSpacing: 11,
+                                childAspectRatio: 1.5,
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [
+                                  MetricCard("Total Customers", totalCustomers.toString()),
+                                  MetricCard("Total Agents", totalAgents.toString()),
+
+                                  // ✅ Multi-row card
+                                  MetricCard(
+                                    "Total Deliveries",
+                                    totalDeliveries.toString(),
+                                    subValues: {
+                                      "On The Way": activeDeliveries.toString(),
+                                      "Drop Off": dropOffDeliveries.toString(),
+                                    },
+                                  ),
+
+                                  MetricCard(
+                                    "Pending Deliveries",
+                                    pendingDeliveries.toString(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

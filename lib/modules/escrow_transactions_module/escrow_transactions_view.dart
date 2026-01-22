@@ -110,8 +110,8 @@ class _SideBar extends StatelessWidget {
           //   );
           // },),
           const Spacer(),
-          _navItem(Icons.logout, "Logout"),
-          const SizedBox(height: 16),
+          // _navItem(Icons.logout, "Logout"),
+          // const SizedBox(height: 16),
         ],
       ),
     );

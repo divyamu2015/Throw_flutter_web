@@ -18,6 +18,8 @@ class ViewFeedbackService {
         .map(
           (snapshot) => snapshot.docs
               .map((doc) => FeedbackModel.fromFirestore(doc.data(), doc.id))
+                .where((req) => req.deliveryAgentUid.trim().isNotEmpty)
+             
               .toList(),
         );
   }
