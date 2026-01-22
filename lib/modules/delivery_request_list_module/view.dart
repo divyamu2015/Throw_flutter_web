@@ -131,6 +131,7 @@ class _SideBar extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: active ? Colors.lightBlue.withOpacity(0.2) : null,
         borderRadius: BorderRadius.circular(12),
       ),

@@ -23,9 +23,13 @@ class FilterPanel extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 12),
+              // ignore: deprecated_member_use
               RadioListTile(value: 0, groupValue: 0, onChanged: null, title: Text("All")),
+              // ignore: deprecated_member_use
               RadioListTile(value: 1, groupValue: 0, onChanged: null, title: Text("Verified")),
+              // ignore: deprecated_member_use
               RadioListTile(value: 2, groupValue: 0, onChanged: null, title: Text("Pending")),
+             // ignore: deprecated_member_use
               RadioListTile(value: 3, groupValue: 0, onChanged: null, title: Text("Suspended")),
             ],
           ),

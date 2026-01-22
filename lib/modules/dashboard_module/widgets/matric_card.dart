@@ -16,7 +16,7 @@ class MetricCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
+    //double h = MediaQuery.of(context).size.height;
 
     return SizedBox(
       height: 160, // little taller to fit rows

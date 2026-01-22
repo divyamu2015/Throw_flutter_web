@@ -189,38 +189,38 @@ class _ContentArea extends StatelessWidget {
     );
   }
 
-  Widget _filters() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search),
-              hintText: "Search by name, email, or phone...",
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlue,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text("Add Customer"),
-        ),
-      ],
-    );
-  }
+  // Widget _filters() {
+  //   return Row(
+  //     children: [
+  //       Expanded(
+  //         child: TextField(
+  //           decoration: InputDecoration(
+  //             prefixIcon: const Icon(Icons.search),
+  //             hintText: "Search by name, email, or phone...",
+  //             filled: true,
+  //             fillColor: Colors.white,
+  //             border: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(12),
+  //               borderSide: BorderSide.none,
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //       const SizedBox(width: 12),
+  //       ElevatedButton(
+  //         onPressed: () {},
+  //         style: ElevatedButton.styleFrom(
+  //           backgroundColor: Colors.lightBlue,
+  //           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //         ),
+  //         child: const Text("Add Customer"),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _table() {
     final deliveryAgentService = DeliveryAgentService();
